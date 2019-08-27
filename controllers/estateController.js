@@ -5,7 +5,7 @@ const router = express.Router();
 const realEstate = require('../models/realEstate');
 
 
-//index Route.
+//INDEX Route.
 router.get('/', async(req,res)=>{
     console.log(req.body, " This is req.body")
     try{
@@ -29,7 +29,7 @@ router.post('/', async(req,res)=>{
         console.log(req.body, ' this is req.body');
         console.log(req.session, ' req.session in post route')
         const newRealEstate = await realEstate.create(req.body)
-        res.json({
+            res.json({
             status:{
             code:201,
             message:"Sucess"
@@ -38,15 +38,64 @@ router.post('/', async(req,res)=>{
         })
     }
     catch(err){
-        console.log(err)
-        res.send(err)
+            console.log(err)
+            es.send(err)
     }
 })
 
 //SHOW ROUTE
 router.get("/:id", async(req, res) => {
-
+    try{
     const foundRealEstate  = await realEstate.findById(req.params.id)
+    res.json({
+        status:{
+        code:200,
+        message:"Sucess"
+        },
+        data:foundRealEstate
+    })
+}
+    catch(err){
+        console.log(err)
+        res.send(err)
+   }
+})
+
+//UPDATE ROUTE
+router.put("/:id", async(req, res) => {
+    try{
+const updatedRealEstate = await realEstate.findByIdAndUpdate(req.params.id)
+res.json({
+    status:{
+        code:200,
+        message:"Successfuly Updated Resource"
+    },
+        data: updatedRealEstate
+})
+    }
+    catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
+})
+//DELETE ROUTE
+router.delete("/:id", async(req, res) => {
+    try{
+const deletedRealEstate = await realEstate.findByIdAndRemove(req.params.id)
+res.json({
+    status:{
+        code:200,
+        message:"Successfuly Deleted Resource"
+    },
+        data: deletedRealEstate
+})
+    }
+    catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
 })
 
 module.exports = router;
