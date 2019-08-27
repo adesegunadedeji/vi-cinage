@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
-const realEstateSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const realEstateSchema = new Schema({
     name: String,
     description: String,
     city: String,
     price: String,
     
-})
-module.exports = module.mode('realEstate', realEstateSchema)
+},  {timestamps:true})
+const realEstate = mongoose.model('realEstate', realEstateSchema);
+module.exports = realEstate;
