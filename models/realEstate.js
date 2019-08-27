@@ -4,7 +4,7 @@ const realEstateSchema = new Schema({
     name: String,
     description: String,
     city: String,
-    price: String,
+    price: {type:Number, default:0},
     
 },  {timestamps:true})
 const realEstate = mongoose.model('realEstate', realEstateSchema);
