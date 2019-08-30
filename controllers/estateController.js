@@ -14,7 +14,7 @@ router.get('/', async(req,res)=>{
         //React Response
         res.json({
             code:200,
-            message:"Sucess",
+            message:"Success",
             data:allRealEstate
         })
     }
@@ -32,7 +32,7 @@ router.post('/', async(req,res)=>{
             res.json({
             status:{
             code:201,
-            message:"Sucess"
+            message:"Success"
             },
             data:newRealEstate
         })
@@ -50,7 +50,7 @@ router.get("/:id", async(req, res) => {
     res.json({
         status:{
         code:200,
-        message:"Sucess"
+        message:"Success"
         },
         data:foundRealEstate
     })
