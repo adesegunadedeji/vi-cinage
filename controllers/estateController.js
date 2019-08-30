@@ -7,6 +7,7 @@ const realEstate = require('../models/realEstate');
 
 //INDEX Route.
 router.get('/', async(req,res)=>{
+    console.log(`A visit coming in from ${req.session.userId}`)
     console.log(req.body, " This is req.body")
     try{
         const allRealEstate = await realEstate.find();
