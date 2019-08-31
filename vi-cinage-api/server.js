@@ -6,6 +6,7 @@ const cors = require('cors');
 const session = require('express-session');
 const db = require('./db/db');
 const estateController = require('./controllers/estateController');
+const userController = require('./controllers/userController')
 const mongoURI = 'mongodb://localhost:27017/'+'vi-cinage';
 const methodOverride = require('method-override');
 const corsOptions={
@@ -27,6 +28,7 @@ app.use(session({
     saveUninitialized:false
 }))
 app.use(cors(corsOptions));
+
 app.listen(process.env.PORT|| 9000, ()=>{
     console.log('listening on port 9000');
 })
@@ -34,6 +36,7 @@ app.listen(process.env.PORT|| 9000, ()=>{
 
 app.use('/api/v1/realEstate',estateController)
 app.use('/users',userController) //Use in Users Route.
+
 //Establish Connection with Mongo
 mongoose.connect(mongoURI,{useNewUrlParser:true});
 mongoose.connection.once("open",()=>{
