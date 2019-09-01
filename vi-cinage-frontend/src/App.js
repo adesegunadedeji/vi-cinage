@@ -1,12 +1,12 @@
 import React from 'react';
-import realEstateContainer from './container/realEstateContainer'
+import Realestatecontainer from './container/RealestateContainer';
 
 
 function App() {
   return (
     <div className="App">
       <h1>vi-cinage</h1>
-      <realEstateContainer/>
+      <Realestatecontainer/>
     </div>
   );
 }
