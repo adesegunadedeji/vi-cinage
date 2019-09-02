@@ -1,5 +1,5 @@
 import React from 'react';
-import Realestatecontainer from './container/RealestateContainer';
+import Realestatecontainer from './components/RealestateContainer'
 
 
 function App() {
