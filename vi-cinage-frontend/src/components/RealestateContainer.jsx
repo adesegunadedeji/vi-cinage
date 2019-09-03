@@ -31,6 +31,7 @@ class Realestatecontainer extends Component{
         grabTrulia = async(search, cityState) => {
             const term = search//this.state.search if term
             console.log(term)
+            const API_KEY = process.env.API_KEY
             try{
             const trulia = await fetch(`https://api.betterdoctor.com/2016-03-01/doctors?location=${cityState}&limit=10&user_key=${API_KEY}&query=${term}`,{
                         method: "GET",
