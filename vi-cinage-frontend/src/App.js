@@ -1,14 +1,28 @@
-import React from 'react';
+import React,{Component} from 'react';
 import Realestatecontainer from './components/RealestateContainer'
+import AuthGateway from './components/AuthGateway/AuthGateway';
 
 
-function App() {
+class App extends Component {
+  constructor(){
+    super();
+    this.state={
+      loggedIn:false,
+      username:null
+    }
+  }
+
+  render(){
   return (
     <div className="App">
-      <h1>vi-cinage</h1>
-      <Realestatecontainer/>
+      {
+        this.state.loggedIn ?
+        <Realestatecontainer/>:
+        <AuthGateway/>
+      }
     </div>
   );
+}
 }
 
 export default App;
