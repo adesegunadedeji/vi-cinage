@@ -18,7 +18,8 @@ class Register extends Component{
     handleSubmit=(e)=>{
         e.preventDefault();
         console.log("Submitted Form")
-        //
+        //Grandchild Props passer
+        this.props.handleRegister(this.state)
     }
     render(){
         return(

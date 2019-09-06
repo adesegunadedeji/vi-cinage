@@ -9,7 +9,7 @@ class AuthGateway extends Component {
        return(
            <div>
                <h1>Register as a New User</h1>
-               <Register/>
+               <Register handleRegister={this.props.handleRegister}/>
            </div>
        )
    }

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import RealEstateList from './RealEstateList/RealEstateList'
-import SearchRealEstate from './SearchRealEstate/SearchRealEstate'
 import NewEstates from './NewEstates/NewEstates';
 
 class Realestatecontainer extends Component{
@@ -30,7 +29,8 @@ class Realestatecontainer extends Component{
         }
 
         updateEstate = async(id,formData)=>{
-            const updatedEstate = await fetch(`http://localhost:9000/api/v1/realEstate/${id}`,{
+            const updatedEstate = await fetch(`http://localhost:9000/api/v1/realEstate/${id}`,
+                    {
                 method: "PUT",
                 body:JSON.stringify(formData),
                 headers:{
@@ -48,6 +48,7 @@ class Realestatecontainer extends Component{
         }
 
         createNewEstate = async(formData)=>{
+            try{ 
             const newEstate = await fetch ("http://localhost:9000/api/v1/realEstate",{
                 method:"POST",
                 body: JSON.stringify(formData),
@@ -59,36 +60,32 @@ class Realestatecontainer extends Component{
             if(parsedResponse.status.code === 201){
                 this.setState({
                     realEstate:[parsedResponse.data, ...this.state.realEstate]
-                })
+                }) // Might Need to change State to show who uploaded the Estate.
             }
         }
-    //     grabTrulia = async(search, city,state, idt) => {
-    //         const term = search//this.state.search if term
-    //         console.log(term)
-    //         const REACT_APP_API_KEY = process.env.REACT_APP_API_KEY;
-    //         const REACT_APP_ID = process.env.REACT_APP_ID
-         
-    //         try{
-    //         const trulia = await fetch(`https://trulia.p.rapidapi.com/properties/detail?cy=${city}&st=${state}&id=${REACT_APP_ID}&idt=${idt}`,{
-    //                     method: "GET",
-    //                     headers:{
-    //                             "Content-Type": "application/json",
-    //                             "x-rapidapi-host": "trulia.p.rapidapi.com",
-	// 	                        "x-rapidapi-key": REACT_APP_API_KEY
-    //                     }
+        catch(err){
+            console.log(err)
+        }
+        }
 
-    //        })
-    //        const truliaJson = await trulia.json();
-    //        console.log(truliaJson)
-    //        this.setState({
-    //         realEstatefromTrulia: truliaJson.data  
-    //     })
-    //     console.log(this.state.realEstatefromTrulia)
-    // }
-    //     catch(err){
-    //         console.log(err)
-    //     }
-    // }
+        deleteEstate = async(id)=>{
+            try{
+                const deleteEstate = await fetch(`http://localhost:9000/api/v1/realEstate/${id}`,{
+                    method: "DELETE",
+                    credentials:"include"
+                });
+                const parsedResponse = await deleteEstate.json();
+                if (parsedResponse.status.code === 200){
+                    this.setState({
+                        realEstate: this.state.realEstate.filter(realEstate=> realEstate._id !==id)
+                    })
+                }
+            }
+            catch(err){
+                console.log(err)
+            }
+
+        }
         componentDidMount(){
             console.log("Component is Mounting")
             this.getEstates()
@@ -99,8 +96,7 @@ class Realestatecontainer extends Component{
             <div>
                 <h1> Employee Database</h1>
                 <NewEstates createNewEstate={this.createNewEstate}/>
-                <SearchRealEstate grabTrulia={this.grabTrulia}/>
-                <RealEstateList realEstate={this.state.realEstate}/>
+                <RealEstateList realEstate={this.state.realEstate} deleteEstate={this.deleteEstate}/>
                 
             </div>
         )
