@@ -31,7 +31,7 @@ router.post('/', async(req,res)=>{
     try{
         console.log(req.body, ' this is req.body');
         console.log(req.session, ' req.session in post route')
-        const newRealEstate = await realEstate.create(req.body)
+        const newRealEstate = await RealEstate.create(req.body)
             res.json({
             status:{
             code:201,
@@ -49,7 +49,7 @@ router.post('/', async(req,res)=>{
 //SHOW ROUTE
 router.get("/:id", async(req, res) => {
     try{
-    const foundRealEstate  = await realEstate.findById(req.params.id)
+    const foundRealEstate  = await RealEstate.findById(req.params.id)
     res.json({
         status:{
         code:200,
@@ -68,7 +68,7 @@ router.get("/:id", async(req, res) => {
 //UPDATE ROUTE
 router.put("/:id", async(req, res) => {
     try{
-const updatedRealEstate = await realEstate.findByIdAndUpdate(req.params.id, {new: true})
+const updatedRealEstate = await RealEstate.findByIdAndUpdate(req.params.id, {new: true})
 res.json({
     status:{
         code:201,
@@ -86,7 +86,7 @@ res.json({
 //DELETE ROUTE
 router.delete("/:id", async(req, res) => {
     try{
-const deletedRealEstate = await realEstate.findByIdAndRemove(req.params.id)
+const deletedRealEstate = await RealEstate.findByIdAndRemove(req.params.id)
 res.json({
     status:{
         code:200,

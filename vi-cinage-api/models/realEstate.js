@@ -12,4 +12,4 @@ const realEstateSchema = new Schema({
     
 },  {timestamps:true})
 
-module.exports = mongoose.model('realEstate', realEstateSchema);
+module.exports = mongoose.model('RealEstate', realEstateSchema);
