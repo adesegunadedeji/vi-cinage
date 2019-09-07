@@ -2,31 +2,31 @@ const express = require('express');
 
 //Setting Up the Router.
 const router = express.Router();
-const realEstate = require('../models/realEstate');
+const RealEstate = require('../models/realEstate');
 
-//New Route: 
-//INDEX Route.
-router.get('/', async(req,res)=>{
-    console.log(`A visit coming in from ${req.session.userId}`)
-    console.log(req.body, " This is req.body")
-    try{
-        const allRealEstate = await realEstate.find().populate('user');
-        consolellog(allRealEstate)
-        console.log(req.session,'this is req.session')
-        //React Response
+// Creating the index route
+router.get('/', async (req, res, next) => {
+    // req.body this is from the fetch request
+    console.log(req.body, ' this is get all')
+       try  {
+        const allRealEstate = await RealEstate.find().populate('user');
+        console.log(req.session, ' this is req.session')
+        // This is the response to react
         res.json({
-            code:200,
-            message:"Success",
-            data:allRealEstate
-        })
-    }
-    catch(err){
-        res.send(err);
-    }
-})
+          code: 200,
+          message: "Success", 
+          data: allRealEstate
+        });
+  
+      } catch (err){
+  
+        res.send(err)
+  
+      }
+  });
+  
 //CREATE Route
 router.post('/', async(req,res)=>{
-    console.log("req.body")
     req.body.user = req.session.userId //To know who's Logged In
     try{
         console.log(req.body, ' this is req.body');

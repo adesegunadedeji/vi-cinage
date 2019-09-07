@@ -5,9 +5,9 @@ const cors = require('cors');
 const session = require('express-session');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const mongoURI = process.env.MONGODB_URI
+const mongoURI = 'mongodb://localhost/vicinage'
 
-const methodOverride = require('method-override');
+
 
 //CORS allows request to come in from React
 const corsOptions={
@@ -29,9 +29,6 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true })); //can change to false
 // parse application/json
 app.use(bodyParser.json());
-app.use(methodOverride('_method')); //For put and Delete
-
-
 app.use((req,res,next)=>{
     console.log('this is who is logged in ', req.session.userId)
     next();
@@ -44,7 +41,6 @@ const userController = require('./controllers/userController')
 app.listen(process.env.PORT|| 9000, ()=>{
     console.log('listening on port 9000');
 })
-
 
 app.use('/api/v1/realEstate',estateController) //Use in Estate Route
 app.use('/user',userController) //Use in Users Route.
