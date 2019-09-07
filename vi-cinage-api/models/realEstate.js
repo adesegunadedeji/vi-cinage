@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const realEstateSchema = new Schema({
     name: String,
-    description: String,
     city: String,
     price: {type:Number, default:0},
+    description: String,
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }
     
 },  {timestamps:true})
-const realEstate = mongoose.model('realEstate', realEstateSchema);
-module.exports = realEstate;
+
+module.exports = mongoose.model('realEstate', realEstateSchema);

@@ -4,13 +4,14 @@ const express = require('express');
 const router = express.Router();
 const realEstate = require('../models/realEstate');
 
-
+//New Route: 
 //INDEX Route.
 router.get('/', async(req,res)=>{
     console.log(`A visit coming in from ${req.session.userId}`)
     console.log(req.body, " This is req.body")
     try{
-        const allRealEstate = await realEstate.find();
+        const allRealEstate = await realEstate.find().populate('user');
+        consolellog(allRealEstate)
         console.log(req.session,'this is req.session')
         //React Response
         res.json({
@@ -25,7 +26,8 @@ router.get('/', async(req,res)=>{
 })
 //CREATE Route
 router.post('/', async(req,res)=>{
-
+    console.log("req.body")
+    req.body.user = req.session.userId //To know who's Logged In
     try{
         console.log(req.body, ' this is req.body');
         console.log(req.session, ' req.session in post route')
@@ -33,7 +35,7 @@ router.post('/', async(req,res)=>{
             res.json({
             status:{
             code:201,
-            message:"Success"
+            message:"Successfully Created"
             },
             data:newRealEstate
         })
@@ -61,14 +63,15 @@ router.get("/:id", async(req, res) => {
         res.send(err)
    }
 })
+/
 
 //UPDATE ROUTE
 router.put("/:id", async(req, res) => {
     try{
-const updatedRealEstate = await realEstate.findByIdAndUpdate(req.params.id)
+const updatedRealEstate = await realEstate.findByIdAndUpdate(req.params.id, {new: true})
 res.json({
     status:{
-        code:200,
+        code:201,
         message:"Successfuly Updated Resource"
     },
         data: updatedRealEstate

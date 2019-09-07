@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb://localhost/realEstate',{
+const mongoURI = process.env.MONGODB_URI
+console.log(mongoURI)
+
+mongoose.connect(mongoURI,{
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false

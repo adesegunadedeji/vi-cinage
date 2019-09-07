@@ -3,42 +3,77 @@ const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs')
 
-//CREATE Route // Resister Route
-router.post('/', async(req,res)=>{
+//CREATE Route // Register Route
+router.post('/register', async(req,res)=>{
+
+    const salt = bcrypt.genSaltSync();
+    const password = req.body.password ; 
+
+    const hashedPassword = bcrypt.hashSync(password,salt)
+    console.log(hashedPassword)
+    
+    req.body.password = hashedPassword
     try{
-        const salt = bcrypt.genSaltSync();
-        req.body.password = bcrypt.hashSync(req.body.password,salt)
-        console.log(req.session, ' req.session in post route')
         const newUser= await User.create(req.body)
+        console.log('created user',newUser)
         req.session.userId = newUser._id
-        res.redirect("/api/v1/realEstate") // Redirecting to the Real Estate Page After Succesful Login. 
-        console.log(newUser)
+        req.session.username = newUser.username;
+        req.session.logged = true;
+
+        res.json({
+            status:{code: 201
+            },
+            data:newUser
+        })
     }
     catch(err){
-            console.log(err)
+            console.log("Error Message: ", err)
             res.send(err)
     }
 })
 
 //Log In Route
 router.post('/login', async(req,res)=>{
-    console.log(req.body)
+    //Query Database to see if User Exists in Database
+
     try{
-        const userFromDb = await User.findOne({username: req.body.username})
-        console.log(req.body.password)
-        const passwordIsValid = bcrypt.compareSync(req.body.password, userFromDb.password)
-        console.log(userFromDb.password)
-        if(passwordIsValid){
-            req.session.userId = userFromDb._id
-            res.redirect("/api/v1/realEstate")
-        }
-        else{
-            res.send("Invalid Password")
-        }
+        const foundUser = await User.findOne({username: req.body.username})
+        console.log('found User', foundUser)
+
+        //If user is found, Use bcrypt to swee if their password is valid
+            if(foundUser){
+                const passwordIsValid = bcrypt.compareSync(password, foundUser.password)
+                console.log(foundUser.password)
+
+                if(passwordIsValid){ //Set Session if Password is Valid
+                    req.session.userId = foundUser._id
+                    req.session.username = foundUser.username;
+                    req.session.logged = true;
+
+                    res.redirect("/estateListings")
+                }
+                else{
+                    res.session.message = "Invalid Password"
+                    res.redirect('/');
+                }
     }
+}
     catch(err){
         console.log(err)
         res.send(err)
     }
 })
+
+router.get('/logout', (req, res) => {
+
+    req.session.destroy((err) => {
+      if(err){
+        res.send(err);
+      } else {
+        res.redirect('/');// Redirect back to homepage
+      }
+    })
+  
+  })
+
 module.exports = router;

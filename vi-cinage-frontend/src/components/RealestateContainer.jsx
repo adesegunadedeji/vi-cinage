@@ -47,6 +47,7 @@ class Realestatecontainer extends Component{
 
         }
 
+       
         createNewEstate = async(formData)=>{
             try{ 
             const newEstate = await fetch ("http://localhost:9000/api/v1/realEstate",{
@@ -59,7 +60,7 @@ class Realestatecontainer extends Component{
             const parsedResponse = await newEstate.json();
             if(parsedResponse.status.code === 201){
                 this.setState({
-                    realEstate:[parsedResponse.data, ...this.state.realEstate]
+                    realEstate:[parsedResponse.data,...this.state.realEstate]
                 }) // Might Need to change State to show who uploaded the Estate.
             }
         }
@@ -84,20 +85,20 @@ class Realestatecontainer extends Component{
             catch(err){
                 console.log(err)
             }
-
         }
+        
         componentDidMount(){
             console.log("Component is Mounting")
             this.getEstates()
             //  this.grabTrulia();
         }
+        
     render(){
         return(
             <div>
-                <h1> Employee Database</h1>
+                <h1>Vi-cinage</h1>
                 <NewEstates createNewEstate={this.createNewEstate}/>
                 <RealEstateList realEstate={this.state.realEstate} deleteEstate={this.deleteEstate}/>
-                
             </div>
         )
     }
