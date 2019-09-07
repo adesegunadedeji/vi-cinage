@@ -32,9 +32,10 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method')); //For put and Delete
 
 
-// app.use((req,res,next)=>{
-//     console.log('this is who is logged in ',req.session.userId);
-// })
+app.use((req,res,next)=>{
+    console.log('this is who is logged in ', req.session.userId)
+    next();
+})
 
 //Require controllers after Middleware.
 const estateController = require('./controllers/estateController');

@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import Register from './Register/Register'
+import Login from './Login/Login';
 
 class AuthGateway extends Component {
         constructor(){
@@ -8,8 +9,9 @@ class AuthGateway extends Component {
    render(){
        return(
            <div>
-               <h1>Register as a New User</h1>
+               <h1>Register/Login</h1>
                <Register handleRegister={this.props.handleRegister}/>
+               <Login handleLogin={this.props.handleLogin}/>
            </div>
        )
    }

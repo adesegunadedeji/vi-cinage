@@ -38,6 +38,7 @@ router.post('/login', async(req,res)=>{
 
     try{
         const foundUser = await User.findOne({username: req.body.username})
+        const password = req.body.password ; 
         console.log('found User', foundUser)
 
         //If user is found, Use bcrypt to swee if their password is valid
@@ -50,11 +51,21 @@ router.post('/login', async(req,res)=>{
                     req.session.username = foundUser.username;
                     req.session.logged = true;
 
-                    res.redirect("/estateListings")
+                    res.json({
+                        status:{
+                            code:200
+                        },
+                        data:foundUser
+                    })
                 }
                 else{
-                    res.session.message = "Invalid Password"
-                    res.redirect('/');
+                    res.session.message = "Invalid Username or Password"
+                    res.json({
+                        status:{
+                            code: 500
+                        },
+                        message: "Invalid Credentials"
+                    })
                 }
     }
 }

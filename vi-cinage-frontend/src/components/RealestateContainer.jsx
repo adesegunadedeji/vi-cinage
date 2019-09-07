@@ -52,6 +52,7 @@ class Realestatecontainer extends Component{
             try{ 
             const newEstate = await fetch ("http://localhost:9000/api/v1/realEstate",{
                 method:"POST",
+                credentials: "include",
                 body: JSON.stringify(formData),
                 headers:{
                     "Content-Type": "application/json"
@@ -86,7 +87,7 @@ class Realestatecontainer extends Component{
                 console.log(err)
             }
         }
-        
+
         componentDidMount(){
             console.log("Component is Mounting")
             this.getEstates()
