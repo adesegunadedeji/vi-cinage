@@ -68,7 +68,7 @@ router.get("/:id", async(req, res) => {
 //UPDATE ROUTE
 router.put("/:id", async(req, res) => {
     try{
-const updatedRealEstate = await RealEstate.findByIdAndUpdate(req.params.id, {new: true})
+const updatedRealEstate = await RealEstate.findByIdAndUpdate(req.params.id,req.body,{new: true})
 res.json({
     status:{
         code:201,
