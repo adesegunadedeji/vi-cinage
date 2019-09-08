@@ -1,10 +1,13 @@
 import React,{Component} from 'react';
 import Realestatecontainer from './components/RealestateContainer'
 import AuthGateway from './components/AuthGateway/AuthGateway';
-import { Button } from 'reactstrap';
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
+import {Route, Switch, Redirect} from 'react-router-dom'
+import Home from './components/Home/Home'
+import About from './components/About/About'
+import Contact from './components/Contact/Contact'
+//Route allows us to define routes. 
 
 class App extends Component {
   constructor(){
@@ -62,22 +65,26 @@ class App extends Component {
   
   render(){
   return (
-    <Router>
     <div className="App">
-  <Navbar/>
-      {
+      <Navbar/>
+      <main>
+        <Switch>
+       < Route path ='/about' component ={About}/>
+       < Route path ='/contact' component ={Contact}/>
+       < Route path ='/' component ={Home}/>
+        <Redirect to='/'/>
+       </Switch>
+       </main>
+       {
         this.state.loggedIn?
         <Realestatecontainer/>:
         <AuthGateway handleRegister={this.handleRegister} handleLogin={this.handleLogin}/>
       }
-      <div className ="homepageText"> Discover a place 
-      <br></br>
-        you'll love to call home </div>
-      <Footer/>
+    <Footer/>
     </div>
-    </Router>
   );
 }
+//Use Exact to match the router exactly. The most specific path is at the top.
 }
 
 export default App;

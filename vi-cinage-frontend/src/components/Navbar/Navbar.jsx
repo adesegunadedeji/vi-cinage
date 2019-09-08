@@ -1,11 +1,12 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import './Navbar.css';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+
 
 class NavbarReact extends Component{
 
     constructor(props) {
         super(props);
-    
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
           collapsed: true
@@ -20,13 +21,13 @@ class NavbarReact extends Component{
       render() {
         return (
           <div>
-            <Navbar color="faded" light>
+            <Navbar className = "Navbar" color="faded" light>
               <NavbarBrand href="/" className="mr-auto">vicinage</NavbarBrand>
               <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
               <Collapse isOpen={!this.state.collapsed} navbar>
                 <Nav navbar>
                   <NavItem>
-                    <NavLink href="/about/">About</NavLink>
+                    <NavLink className ="aTag" href="/about/">About</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink href="/contact/">contact</NavLink>

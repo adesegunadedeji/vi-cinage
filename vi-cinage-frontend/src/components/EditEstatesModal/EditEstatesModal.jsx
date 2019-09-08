@@ -36,8 +36,8 @@ handleSubmit= async (e)=>{
       <div>
         <Button color="danger" onClick={this.toggle}> Edit {this.props.realEstate.name}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle} charCode="V">Modal title</ModalHeader>
-          <ModalBody>
+          <ModalHeader toggle={this.toggle} charCode="V">{this.state.name}</ModalHeader>
+          <ModalBody className ="modal-body">
               <form onSubmit = {this.handleSubmit}>
                 Name: <input type="text" name="name" onChange={this.handleChange} value={this.state.name}/>
                 City: <input type="text" name="city"onChange={this.handleChange}value={this.state.city}/>
