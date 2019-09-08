@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter ,Col, Form, FormGroup, Label, Input} from 'reactstrap';
 
 class EditEstateModal extends React.Component {
   constructor(props) {
@@ -38,12 +38,33 @@ handleSubmit= async (e)=>{
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle} charCode="V">{this.state.name}</ModalHeader>
           <ModalBody className ="modal-body">
-              <form onSubmit = {this.handleSubmit}>
-                Name: <input type="text" name="name" onChange={this.handleChange} value={this.state.name}/>
-                City: <input type="text" name="city"onChange={this.handleChange}value={this.state.city}/>
-                Price: <input type="text" name="price"onChange={this.handleChange}value={this.state.price}/>
-                Description: <textarea type="text" name="description"onChange={this.handleChange}value={this.state.description}/>
-              </form>
+              <Form onSubmit = {this.handleSubmit}>
+              <FormGroup row>
+          <Label for="exampleEmail2" sm={2}> Name</Label>
+          <Col sm={10}>
+                <Input type="text" name="name" onChange={this.handleChange} value={this.state.name}/>
+                </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="exampleEmail2" sm={2}> City</Label>
+          <Col sm={10}>
+                <Input type="text" name="city"onChange={this.handleChange}value={this.state.city}/>
+                </Col>
+        </FormGroup>
+
+        <FormGroup row>
+          <Label for="exampleEmail2" sm={2}> Price</Label>
+          <Col sm={10}>
+                <Input type="text" name="price"onChange={this.handleChange}value={this.state.price}/>
+                </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="exampleText" sm={2}> Description</Label>
+          <Col sm={10}>
+                <Input type="textarea" name="description"onChange={this.handleChange}value={this.state.description}/>
+                </Col>
+        </FormGroup>
+              </Form>
            </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleSubmit}>Edit Real Estate{' '}</Button>
