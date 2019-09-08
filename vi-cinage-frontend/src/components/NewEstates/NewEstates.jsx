@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import {Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 class NewEstates extends Component{
     constructor(){
         super();
@@ -23,18 +23,35 @@ class NewEstates extends Component{
     render(){
         return (
             <div>
-                 <form onSubmit={this.handleSubmit}>
-                     <h4>Add a New Property</h4>
-                <label htmlFor="name">Name:</label>
-                <input type="text" name="name" onChange={this.handleChange}/>
-                <label htmlFor="city">City:</label>
-                <input type="text" name="city" onChange={this.handleChange}/>
-                <label htmlFor="price">Price:</label>
-                <input type="text" name="price" onChange={this.handleChange}/>
-                <label htmlFor="description">Description:</label>
-                <input type="text" name="description" onChange={this.handleChange}/>
-                <input type="submit" value="Add Property"></input>
-                 </form>
+
+                 <Form onSubmit = {this.handleSubmit}>
+              <FormGroup row>
+          <Label for="exampleEmail2" sm={2}> Name</Label>
+          <Col sm={10}>
+                <Input type="text" name="name" onChange={this.handleChange}/>
+                </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="exampleEmail2" sm={2}> City</Label>
+          <Col sm={10}>
+                <Input type="text" name="city"onChange={this.handleChange}/>
+                </Col>
+        </FormGroup>
+
+        <FormGroup row>
+          <Label for="exampleEmail2" sm={2}> Price</Label>
+          <Col sm={10}>
+                <Input type="text" name="price"onChange={this.handleChange}/>
+                </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="exampleText" sm={2}> Description</Label>
+          <Col sm={10}>
+                <Input type="textarea" name="description"onChange={this.handleChange}/>
+                </Col>
+        </FormGroup>
+        <Button outline color="success">Add Property</Button>{' '}
+              </Form>
             </div>
         )
     }
