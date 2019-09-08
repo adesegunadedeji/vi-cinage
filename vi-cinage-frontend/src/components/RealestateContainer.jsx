@@ -29,22 +29,29 @@ class Realestatecontainer extends Component{
         }
 
         updateEstate = async(id,formData)=>{
-            const updatedEstate = await fetch(`http://localhost:9000/api/v1/realEstate/${id}`,
-                    {
-                method: "PUT",
-                body:JSON.stringify(formData),
-                headers:{
-                    "Content-Type": "application/json"
-                }
-            })
-            const parsedResponse = await updatedEstate.json();
-            console.log(parsedResponse)
-            if (parsedResponse.status.code === 201){
-                this.setState({
-                    realEstate:formData
-                })
+            try{
+                console.log(formData)
+                const updatedEstate = await fetch(`http://localhost:9000/api/v1/realEstate/${id}`,
+                {
+            method: "PUT",
+            body:JSON.stringify(formData),
+            credentials: "include",
+            headers:{
+                "Content-Type": "application/json"
             }
-
+        })
+        const parsedResponse = await updatedEstate.json();
+        console.log(parsedResponse)
+        if (parsedResponse.status.code === 201){
+            console.log("EstateUpdated", formData)
+            await this.setState({
+                realEstate:this.state.realEstate.map(realEstate=>realEstate._id === id? parsedResponse.data : realEstate)
+        })
+            }
+        }
+            catch(err){
+                console.log(err)
+            }
         }
 
        
@@ -99,7 +106,7 @@ class Realestatecontainer extends Component{
             <div>
                 <h1>Vi-cinage</h1>
                 <NewEstates createNewEstate={this.createNewEstate}/>
-                <RealEstateList realEstate={this.state.realEstate} deleteEstate={this.deleteEstate}/>
+                <RealEstateList realEstate={this.state.realEstate} deleteEstate={this.deleteEstate} updateEstate={this.updateEstate} />
             </div>
         )
     }

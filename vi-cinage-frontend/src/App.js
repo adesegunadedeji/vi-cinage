@@ -1,6 +1,9 @@
 import React,{Component} from 'react';
 import Realestatecontainer from './components/RealestateContainer'
 import AuthGateway from './components/AuthGateway/AuthGateway';
+import { Button } from 'reactstrap';
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import Navbar from './components/Navbar/Navbar'
 
 
 class App extends Component {
@@ -59,13 +62,16 @@ class App extends Component {
   
   render(){
   return (
+    <Router>
     <div className="App">
+  <Navbar/>
       {
         this.state.loggedIn?
         <Realestatecontainer/>:
         <AuthGateway handleRegister={this.handleRegister} handleLogin={this.handleLogin}/>
       }
     </div>
+    </Router>
   );
 }
 }
