@@ -1,17 +1,45 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
-class Navbar extends Component{
+class NavbarReact extends Component{
 
-  render() {
-    return (
-      <header>
-        <ul id="headerButtons">
-          <li className="navButton"><Link to="">Home</Link></li>
-        </ul>
-      </header>
-    )
-  }
+    constructor(props) {
+        super(props);
+    
+        this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.state = {
+          collapsed: true
+        };
+      }
+    
+      toggleNavbar() {
+        this.setState({
+          collapsed: !this.state.collapsed
+        });
+      }
+      render() {
+        return (
+          <div>
+            <Navbar color="faded" light>
+              <NavbarBrand href="/" className="mr-auto">vicinage</NavbarBrand>
+              <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+              <Collapse isOpen={!this.state.collapsed} navbar>
+                <Nav navbar>
+                  <NavItem>
+                    <NavLink href="/about/">About</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/contact/">contact</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="https://github.com/adesegunadedeji">GitHub</NavLink>
+                  </NavItem>
+                </Nav>
+              </Collapse>
+            </Navbar>
+          </div>
+        );
+      }
 
 }
-export default Navbar
+export default NavbarReact

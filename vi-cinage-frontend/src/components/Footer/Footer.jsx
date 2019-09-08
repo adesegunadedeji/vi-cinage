@@ -4,7 +4,7 @@ class Footer extends Component {
     return (
       <footer>
         <div>
-          Footer component
+          Built By Adesegun||Adedeji
         </div>
       </footer>
     )

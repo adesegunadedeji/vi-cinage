@@ -4,7 +4,7 @@ import AuthGateway from './components/AuthGateway/AuthGateway';
 import { Button } from 'reactstrap';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
-
+import Footer from './components/Footer/Footer'
 
 class App extends Component {
   constructor(){
@@ -70,6 +70,10 @@ class App extends Component {
         <Realestatecontainer/>:
         <AuthGateway handleRegister={this.handleRegister} handleLogin={this.handleLogin}/>
       }
+      <div className ="homepageText"> Discover a place 
+      <br></br>
+        you'll love to call home </div>
+      <Footer/>
     </div>
     </Router>
   );
