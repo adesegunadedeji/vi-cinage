@@ -8,8 +8,8 @@ function RealEstateList(props){
           
             <li key={realEstate._id}>
             <h1>{realEstate.name}</h1>
-            <p>{realEstate.description}</p>
             <img src = {realEstate.image} alt={realEstate.name}/>
+            <p>{realEstate.description}</p>
             <p>Uploaded by: {realEstate.user.username}</p>
             <EditEstateModal realEstate={realEstate} updateEstate={props.updateEstate} />
             <Button  outline color="danger" onClick={()=>{props.deleteEstate(realEstate._id)
@@ -20,7 +20,7 @@ function RealEstateList(props){
     })
 //Need to add Usernameto Uploaded by:
  return(
-        <div>
+        <div className="estateList">
             <ul>
             {realEstate}
             </ul>

@@ -18,3 +18,12 @@ h1{
  .navbar{
    background-color: aqua;
  }
+ ul{
+   list-style: none;
+   display: flex;
+ }
+
+ img{
+  border-radius: 5px;
+  width: 50%;
+ }
