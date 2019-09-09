@@ -7,6 +7,7 @@ class NewEstates extends Component{
             name:"",
             city:"",
             price:0,
+            image:"",
             description:""
         }
     }
@@ -27,26 +28,32 @@ class NewEstates extends Component{
                  <Form onSubmit = {this.handleSubmit}>
               <FormGroup row>
           <Label for="exampleEmail2" sm={2}> Name</Label>
-          <Col sm={10}>
+          <Col sm={5}>
                 <Input type="text" name="name" onChange={this.handleChange}/>
                 </Col>
         </FormGroup>
         <FormGroup row>
           <Label for="exampleEmail2" sm={2}> City</Label>
-          <Col sm={10}>
+          <Col sm={5}>
                 <Input type="text" name="city"onChange={this.handleChange}/>
                 </Col>
         </FormGroup>
 
         <FormGroup row>
           <Label for="exampleEmail2" sm={2}> Price</Label>
-          <Col sm={10}>
+          <Col sm={5}>
                 <Input type="text" name="price"onChange={this.handleChange}/>
                 </Col>
         </FormGroup>
         <FormGroup row>
+          <Label for="exampleEmail2" sm={2}> Image</Label>
+          <Col sm={5}>
+                <Input type="text" name="image" onChange={this.handleChange}/>
+                </Col>
+        </FormGroup>
+        <FormGroup row>
           <Label for="exampleText" sm={2}> Description</Label>
-          <Col sm={10}>
+          <Col sm={5}>
                 <Input type="textarea" name="description"onChange={this.handleChange}/>
                 </Col>
         </FormGroup>

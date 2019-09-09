@@ -67,7 +67,7 @@ handleSubmit= async (e)=>{
               </Form>
            </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSubmit}>Edit Real Estate{' '}</Button>
+            <Button outline color="success" onClick={this.handleSubmit}>Edit Real Estate{' '}</Button>
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

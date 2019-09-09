@@ -104,7 +104,6 @@ class Realestatecontainer extends Component{
     render(){
         return(
             <div>
-                <h1>Vi-cinage</h1>
                 <NewEstates createNewEstate={this.createNewEstate}/>
                 <RealEstateList realEstate={this.state.realEstate} deleteEstate={this.deleteEstate} updateEstate={this.updateEstate} />
             </div>
