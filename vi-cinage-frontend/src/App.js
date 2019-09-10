@@ -86,6 +86,14 @@ class App extends Component {
         <Realestatecontainer/>:
         <AuthGateway handleRegister={this.handleRegister} handleLogin={this.handleLogin}/>
       }
+      <div>
+      <h2 align="center">
+         <div className ="text">
+           See how vicinage can help
+         </div>
+       </h2>
+       </div>
+
     <Footer/>
     </div>
   );

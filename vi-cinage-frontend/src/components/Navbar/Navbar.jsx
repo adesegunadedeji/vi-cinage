@@ -28,7 +28,7 @@ class NavbarReact extends Component{
               <Collapse isOpen={!this.state.collapsed} navbar>
                 <Nav navbar>
                   <NavItem>
-                    <NavLink className ="aTag" href="/about/">about</NavLink>
+                    <NavLink href="/about/">about</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink href="/contact/">contact</NavLink>
