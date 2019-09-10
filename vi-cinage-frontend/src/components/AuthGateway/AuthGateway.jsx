@@ -6,7 +6,7 @@ import Login from './Login/Login';
 class AuthGateway extends Component {
    render(){
        return(
-           <div>
+           <div className="authentication">
                <Register handleRegister={this.props.handleRegister}/>
                <Login handleLogin={this.props.handleLogin}/>
            </div>

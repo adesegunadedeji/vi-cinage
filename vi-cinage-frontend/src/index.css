@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.34;
 }
 
 code {
@@ -15,15 +16,43 @@ code {
 h1{
   font-family: 'Exo', sans-serif;
  }
- .navbar{
-   background-color: aqua;
- }
+ /* .navbar{
+   background-color:white;
+ } */
  ul{
    list-style: none;
    display: flex;
  }
-
+ 
+ a.mr-auto.navbar-brand{
+  font-family: 'Kanit', sans-serif;
+  text-decoration-color: #007882;
+ }
  img{
   border-radius: 5px;
   width: 50%;
  }
+ .nav-link{
+  font-family: 'Kanit', sans-serif;
+  text-decoration-color: crimson;
+ }
+button.btn.btn-secondary{
+  background-color: #4267b2;
+    border-color: #29487d;
+}
+.authentication{
+  display: flex;
+  padding:  0 1.5em 0 1.5em;
+}
+.registerandLoginForm{
+  border: 1px solid gray
+}
+h6,input,button.btn.btn-secondary{
+  font-family: 'Kanit', sans-serif;
+}
+footer p {
+  font-size: .75rem;
+  text-align: center; 
+  margin-top: 3em;
+  font-family: 'Kanit', sans-serif;
+} 
