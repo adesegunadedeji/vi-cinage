@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import './Navbar.css';
+
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-
-
 class NavbarReact extends Component{
 
     constructor() {
@@ -28,7 +27,7 @@ class NavbarReact extends Component{
               <Collapse isOpen={!this.state.collapsed} navbar>
                 <Nav navbar>
                   <NavItem>
-                    <NavLink href="/about/">about</NavLink>
+                    <NavLink href="/about">about</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink href="/contact/">contact</NavLink>

@@ -8,7 +8,9 @@ function RealEstateList(props){
           
             <li key={realEstate._id}>
             <h1>{realEstate.name}</h1>
+            <div className="Images">
             <img src = {realEstate.image} alt={realEstate.name}/>
+            </div>
             <p>{realEstate.description}</p>
             <p>Uploaded by: {realEstate.user.username}</p>
             <EditEstateModal realEstate={realEstate} updateEstate={props.updateEstate} />

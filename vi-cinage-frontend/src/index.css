@@ -32,7 +32,8 @@ h1,h2{
  }
  img{
   border-radius: 5px;
-  width: 50%;
+  width: 300px;
+  height: 200px;
  }
  a.nav-link,h{
   font-family: 'Kanit', sans-serif;
@@ -74,4 +75,10 @@ footer p {
 }
 input[type=text]:focus, input[type=password]:focus{
   border: 3px solid #007882; ;
+}
+
+.Images{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
 }
