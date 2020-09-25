@@ -52,7 +52,8 @@ console.log(mongoURI)
 mongoose.connect(mongoURI,{
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
 })
 
 mongoose.connection.on('connection Message', () => {
