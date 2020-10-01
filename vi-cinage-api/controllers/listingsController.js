@@ -1,5 +1,5 @@
-'use strict'
-import {Listing} from '../models/listings';
+
+import Listing from '../models/listings.js';
 
 /**
  *Create Listing

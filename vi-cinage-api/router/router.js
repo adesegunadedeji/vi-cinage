@@ -1,16 +1,17 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-import {userRegistration, loginRegistration, logOut} from '../controllers/userController';
-import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from '../controllers/estateController';
-import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from '../controllers/listingsController';
+import {userRegistration, loginRegistration, logOut} from '../controllers/userController.js'
+import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from '../controllers/estateController.js';
+import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from '../controllers/listingsController.js';
 
 /* 
 User Authentication.
  */
-router.post('/user/register',userRegistration );
-router.post('/user/login',loginRegistration );
-router.get('/user/logout',logOut );
+router.post('/users/register',userRegistration );
+router.post('/users/login',loginRegistration );
+router.get('/users/logout',logOut );
+
 
 /* 
 Real Estate Agencies.
@@ -31,7 +32,11 @@ router.get('/listings/all', fetchAllListings);
 router.get('/listings/:id',updateListing);
 router.delete('/listings/:id', deleteSingleListing);
 
+//default 200 OK
+router.get("health", (req, res) => {
+    res.send("OK");
+});
 
-module.exports = router;
 
-export { router };
+
+export {router as Router};

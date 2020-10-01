@@ -1,13 +1,18 @@
-const express = require('express');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+
+import session from 'express-session';
+import mongoose from 'mongoose'
+import {Router as api} from './router/router.js';
+
+
 const app = express();
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const session = require('express-session');
-const mongoose = require('mongoose');
-require('dotenv').config();
-const mongoURI = 'mongodb://localhost/vicinage'
+dotenv.config();
 
-
+const PORT = process.env.PORT;
+console.log(PORT, "PORT", process.env.PORT);
 
 //CORS allows request to come in from React
 const corsOptions={
@@ -24,46 +29,42 @@ app.use(session({
   saveUninitialized:false
 }))
 
+mongoose.Promise = global.Promise;
+mongoose
+    .connect(process.env.MONGODBCLOUD, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log("database connected"))
+    .catch(err => console.log("could not connect database", err));
+
 //MiddleWare
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); //can change to false
 // parse application/json
 app.use(bodyParser.json());
+
 app.use((req,res,next)=>{
     console.log('this is who is logged in ', req.session.userId)
     next();
 })
 
-//Require controllers after Middleware.
-const estateController = require('./controllers/estateController');
-const userController = require('./controllers/userController')
+//server works --200 status
+app.get('/', (req, res) => {
+  res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API ...</p>');
+})
+//API Routes
+app.use('/api/v1/', api);
 
-app.listen(process.env.PORT|| 9000, ()=>{
-    console.log('listening on port 9000');
+app.on('error', (err) => {
+  console.error(`Express server error ${err}`);
+});
+
+app.listen(PORT, ()=>{
+    console.log(`listening on ${PORT}`);
 })
 
-app.use('/api/v1/realEstate',estateController) //Use in Estate Route
-app.use('/user',userController) //Use in Users Route.
 
 
-
-console.log(mongoURI)
-
-mongoose.connect(mongoURI,{
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-})
-
-mongoose.connection.on('connection Message', () => {
-    console.log('Mongoose is Connected!!!')
-  });
-  
-  mongoose.connection.on('error Message', (err) => {
-    console.log(err, ' mongoose failed to connect :(')
-  });
-  
-  mongoose.connection.on('disconnected', () => {
-    console.log('Mongoose is disconnected :(')
-  });

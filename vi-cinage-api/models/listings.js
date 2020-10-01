@@ -8,4 +8,6 @@ const ListingsSchema = new Schema ({
     updated_by: { type: String }
 }, { timestamps: true } );
 
-export const Listing = mongoose.model('Listing', ListingsSchema);
+ const Listing = mongoose.model('Listing', ListingsSchema);
+
+export default Listing;

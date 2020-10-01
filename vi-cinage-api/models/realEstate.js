@@ -23,4 +23,5 @@ const realEstateCompanySchema = new Schema({
 
 })
 
-module.exports = mongoose.model('RealEstate', realEstateCompanySchema);
+ const RealEstate = mongoose.model('RealEstate', realEstateCompanySchema);
+ export default RealEstate;

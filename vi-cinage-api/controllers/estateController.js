@@ -1,5 +1,5 @@
 
-import {RealEstate} from '../models/realEstate';
+import RealEstate from '../models/realEstate.js';
 
 /**
  *Fetch All Estate Agencies
