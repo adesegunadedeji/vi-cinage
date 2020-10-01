@@ -1,105 +1,152 @@
-const express = require('express');
 
-//Setting Up the Router.
-const router = express.Router();
-const RealEstate = require('../models/realEstate');
+import {RealEstate} from '../models/realEstate';
 
-// Creating the index route
-router.get('/', async (req, res, next) => {
-    // req.body this is from the fetch request
-    console.log(req.body, ' this is get all')
+/**
+ *Fetch All Estate Agencies
+ *@GET {{baseUrl}}/api/v1/estate/all
+*/
+export const fetchAllAgencies = async (req, res, next) => {
        try  {
         const allRealEstate = await RealEstate.find().populate('user');
-        console.log(req.session, ' this is req.session')
-        // This is the response to react
+        // console.log(req.session, ' this is req.session')
         res.json({
           code: 200,
-          message: "Success", 
+          message: "Agency data fetched", 
           data: allRealEstate
         });
   
       } catch (err){
-  
-        res.send(err)
-  
+        return res.status(500).send({
+            success: false,
+            message: err
+        })
       }
-  });
+  };
   
-//CREATE Route
-router.post('/', async(req,res)=>{
-    req.body.user = req.session.userId //To know who's Logged In
+/**
+ *Add Estate Agency
+ *@POST {{baseUrl}}/api/v1/estate/new
+*/
+export const addEstateAgency = async(req,res)=>{
+    // req.body.user = req.session.userId //To know who's Logged In
     try{
-        console.log(req.body, ' this is req.body');
-        console.log(req.session, ' req.session in post route')
+        if (Object.keys(req.body).length == 0)
+        return res.status(400).send({ success: false, message: 'Please fill all fields' });
+
         const newRealEstate = await RealEstate.create(req.body)
-            res.json({
-            status:{
-            code:201,
-            message:"Successfully Created"
-            },
+        res.json({
+            status:{code:201,
+                    message:" Estate Agency added succesfully"},
             data:newRealEstate
         })
     }
     catch(err){
-            console.log(err)
-            es.send(err)
+           return res.status(200).send({
+                success: false,
+                message: 'Estate was not created'
+            })
     }
-})
+}
 
-//SHOW ROUTE
-router.get("/:id", async(req, res) => {
+
+/**
+ *Fetch Single EstateAgency
+ *@GET {{baseUrl}}/api/v1/estates/:id'
+*/
+    export const fetchSingleEstate =  async(req, res) => {
+    
     try{
-    const foundRealEstate  = await RealEstate.findById(req.params.id)
-    res.json({
-        status:{
-        code:200,
-        message:"Success"
-        },
-        data:foundRealEstate
-    })
+    console.log(req.body);
+    const estate_id = req.params.id;
+    const singleEstateAgent  = await RealEstate.findOne({ _id: estate_id});
+        
+    if(!singleEstateAgent){
+        return res.send({
+            success: false,
+            message: "No matching records found"
+        })
+    }
+    else {
+        res.status(200).send({
+            success: true,
+            data: singleEstateAgent,
+            message: 'Single Estate Agency fetched'
+        })
+    }
 }
     catch(err){
         console.log(err)
-        res.send(err)
+        res.status(500).send({
+            success: false,
+            message: " Invalid ID passed",
+            error: err
+        })
    }
-})
-/
+}
 
-//UPDATE ROUTE
-router.put("/:id", async(req, res) => {
+
+/**
+ *Update Genres
+ *@PUT {{baseUrl}}/api/v1/estates/:id
+*/
+
+export const updateSingleEstate =  async(req, res) => {
     try{
-const updatedRealEstate = await RealEstate.findByIdAndUpdate(req.params.id,req.body,{new: true})
-res.json({
-    status:{
-        code:201,
-        message:"Successfuly Updated Resource"
-    },
-        data: updatedRealEstate
-})
-    }
+        //const {_id} = req.body;
+        const singleAgency = await RealEstate.findByIdAndUpdate(req.params.id, req.body, {new: true})
+            if (!singleAgency) {
+                return res.status(404).send({
+                 success: false,
+                message: 'No matching records found for given ID.'
+                });
+            }
+            else {
+                res.json({
+                    status:{
+                        code:201,
+                        message:"Successfuly Updated Resource"
+                    },
+                        data: singleAgency
+                })}
+ }
     catch(err){
-        console.log(err)
-        res.send(err)
+        return res.status(500).send({
+            success: false,
+            message: 'Invalid ID passed',
+            Errors: error
+        })
     }
 
-})
-//DELETE ROUTE
-router.delete("/:id", async(req, res) => {
+}
+
+/**
+ *Delete Estate Agency
+ *@DELETE {{baseUrl}}/api/v1/estates/:id'
+*/
+export const deleteSingleEstate =  async(req, res) => {
+
     try{
-const deletedRealEstate = await RealEstate.findByIdAndRemove(req.params.id)
-res.json({
+        const estate_id = req.params.id;
+        const deletedRealEstate = await RealEstate.findByIdAndRemove({_id: estate_id});
+        if(!estate_id) {
+            return res.status(404).send({
+                success: false,
+                message: 'No matching records found',
+            })
+        }
+else {
+    res.json({
     status:{
         code:200,
         message:"Successfuly Deleted Resource"
-    },
-        data: deletedRealEstate
+            },
+    data: deletedRealEstate
 })
+}
+} catch(err){
+        return res.status(500).send({
+            success: false,
+            message: error
+        })
     }
-    catch(err){
-        console.log(err)
-        res.send(err)
-    }
-
-})
-
-module.exports = router;
+}

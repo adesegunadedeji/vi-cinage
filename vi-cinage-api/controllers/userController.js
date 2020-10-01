@@ -1,46 +1,54 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../models/user');
+import User from '../models/user.js';
 const bcrypt = require('bcryptjs')
 
-//CREATE Route // Register Route
-router.post('/register', async(req,res)=>{
+/**
+ *Create User Registration
+ *@POST {{baseUrl}}/api/v1/register
+*/
 
-    const salt = bcrypt.genSaltSync();
-    const password = req.body.password ; 
-
-    const hashedPassword = bcrypt.hashSync(password,salt)
-    console.log(hashedPassword)
-    
-    req.body.password = hashedPassword
+export const userRegistration = async(req,res)=>{
     try{
+        const salt = bcrypt.genSaltSync();
+        const password = req.body.password ; 
+        const hashedPassword = bcrypt.hashSync(password,salt)
+        req.body.password = hashedPassword
+
         const newUser= await User.create(req.body)
         console.log('created user',newUser)
         req.session.userId = newUser._id
         req.session.username = newUser.username;
         req.session.logged = true;
 
-        res.json({
-            status:{code: 201
-            },
-            data:newUser
+        res.status(200).send({
+            success: true,
+            message: " User Succesfully created",
+            data: newUser
         })
+        // res.json({
+        //     status:{code: 201
+        //     },
+        //     data:newUser
+        // })
     }
     catch(err){
-            console.log("Error Message: ", err)
-            res.send(err)
+            console.log("Error Message: ", err);
+            res.status(500).send({
+                success: false,
+                message: err
+            })     
     }
-})
+}
 
-//Log In Route
-router.post('/login', async(req,res)=>{
+/**
+ *Fetch User Registration through Login
+ *@POST {{baseUrl}}/api/v1/admin/login
+*/
+export const loginRegistration =  async(req,res)=>{
     //Query Database to see if User Exists in Database
-
     try{
         const foundUser = await User.findOne({username: req.body.username})
         const password = req.body.password ; 
         console.log('found User', foundUser)
-
         //If user is found, Use bcrypt to swee if their password is valid
             if(foundUser){
                 const passwordIsValid = bcrypt.compareSync(password, foundUser.password)
@@ -73,9 +81,12 @@ router.post('/login', async(req,res)=>{
         console.log(err)
         res.send(err)
     }
-})
-
-router.get('/logout', (req, res) => {
+}
+/**
+ *Log Out 
+ *@POST {{baseUrl}}/api/v1/admin/logout
+*/
+export const logOut =  (req, res) => {
 
     req.session.destroy((err) => {
       if(err){
@@ -85,6 +96,4 @@ router.get('/logout', (req, res) => {
       }
     })
   
-  })
-
-module.exports = router;
+  }
