@@ -3,26 +3,24 @@ import RealEstate from '../models/realEstate.js';
 
 /**
  *Fetch All Estate Agencies
- *@GET {{baseUrl}}/api/v1/estate/all
+ *@GET {{baseUrl}}/api/v1/estates
 */
 export const fetchAllAgencies = async (req, res, next) => {
        try  {
-        const allRealEstate = await RealEstate.find().populate('user');
-        // console.log(req.session, ' this is req.session')
+
+        const allAgencies = await RealEstate.find();
         res.json({
-          code: 200,
-          message: "Agency data fetched", 
-          data: allRealEstate
-        });
-  
-      } catch (err){
+            code: 200,
+            message: "All agencies Fetched", 
+            data: allAgencies
+          });
+      } catch (error){
         return res.status(500).send({
             success: false,
-            message: err
+            message: error
         })
       }
   };
-  
 /**
  *Add Estate Agency
  *@POST {{baseUrl}}/api/v1/estate/new
@@ -32,14 +30,13 @@ export const addEstateAgency = async(req,res)=>{
     try{
         if (Object.keys(req.body).length == 0)
         return res.status(400).send({ success: false, message: 'Please fill all fields' });
-
-        const newRealEstate = await RealEstate.create(req.body)
-        res.json({
-            status:{code:201,
-                    message:" Estate Agency added succesfully"},
-            data:newRealEstate
-        })
-    }
+        const newRealEstate = await RealEstate.create(req.body); 
+            return res.status(201).send({
+                success: true,
+                data: newRealEstate,
+                message: 'Real Estate created successful'
+            })
+}
     catch(err){
            return res.status(200).send({
                 success: false,
@@ -56,7 +53,6 @@ export const addEstateAgency = async(req,res)=>{
     export const fetchSingleEstate =  async(req, res) => {
     
     try{
-    console.log(req.body);
     const estate_id = req.params.id;
     const singleEstateAgent  = await RealEstate.findOne({ _id: estate_id});
         

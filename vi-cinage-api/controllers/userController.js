@@ -23,11 +23,6 @@ export const userRegistration = async(req,res)=>{
             message: " User Succesfully created",
             data: newUser
         })
-        // res.json({
-        //     status:{code: 201
-        //     },
-        //     data:newUser
-        // })
     }
     catch(err){
             console.log("Error Message: ", err);
@@ -57,12 +52,12 @@ export const loginRegistration =  async(req,res)=>{
                     req.session.userId = foundUser._id
                     req.session.username = foundUser.username;
                     req.session.logged = true;
-
                     res.json({
                         status:{
                             code:200
                         },
-                        data:foundUser
+                        data:foundUser,
+                        message: "User has succesfully logged in"
                     })
                 }
                 else{
