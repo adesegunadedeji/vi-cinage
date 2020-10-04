@@ -31,5 +31,8 @@
     "mongoose": "^5.7.5",
     "nodemon": "^1.19.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "dot-prop": ">=4.2.1",
+    "kind-of": ">=6.0.3"
+  }
 }
