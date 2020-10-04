@@ -1,11 +1,10 @@
 import User from '../models/user.js';
-const bcrypt = require('bcryptjs')
+import bcrypt from 'bcryptjs';
 
 /**
  *Create User Registration
  *@POST {{baseUrl}}/api/v1/register
 */
-
 export const userRegistration = async(req,res)=>{
     try{
         const salt = bcrypt.genSaltSync();
@@ -24,11 +23,6 @@ export const userRegistration = async(req,res)=>{
             message: " User Succesfully created",
             data: newUser
         })
-        // res.json({
-        //     status:{code: 201
-        //     },
-        //     data:newUser
-        // })
     }
     catch(err){
             console.log("Error Message: ", err);
@@ -58,12 +52,12 @@ export const loginRegistration =  async(req,res)=>{
                     req.session.userId = foundUser._id
                     req.session.username = foundUser.username;
                     req.session.logged = true;
-
                     res.json({
                         status:{
                             code:200
                         },
-                        data:foundUser
+                        data:foundUser,
+                        message: "User has succesfully logged in"
                     })
                 }
                 else{
@@ -87,7 +81,7 @@ export const loginRegistration =  async(req,res)=>{
  *@POST {{baseUrl}}/api/v1/admin/logout
 */
 export const logOut =  (req, res) => {
-
+    console.log(req.session, " REq.session");
     req.session.destroy((err) => {
       if(err){
         res.send(err);
@@ -97,3 +91,30 @@ export const logOut =  (req, res) => {
     })
   
   }
+
+
+  /**
+ *Log Out 
+ *@POST {{baseUrl}}/api/v1/admin/users/all
+*/
+
+export const allUsers = async (req,res)=> {
+    try {
+        const allUsers = await User.find();
+        res.json({
+            code: 200,
+            message: "All users Fetched", 
+            data: allUsers
+          });
+        
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: error
+        })
+    }
+
+
+
+
+}

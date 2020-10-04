@@ -1,5 +1,5 @@
-'use strict'
-import {Listing} from '../models/listings';
+
+import Listing from '../models/listings.js';
 
 /**
  *Create Listing
@@ -33,7 +33,7 @@ export const addListing = async(req,res)=> {
 
 export const fetchAllListings = async(req,res) => {
 try {
-    const allListings = await allListings.find();
+    const allListings = await Listing.find();
         return res.status(200).send({
             success: true,
             data: allListings,
@@ -90,21 +90,20 @@ export const updateListing = async (req,res)=> {
 export const fetchSingleListing =  async(req, res) => {
     
     try{
-    console.log(req.body);
-    const listings_id = req.params.id;
+   const listings_id = req.params.id;
     const singleListing  = await Listing.findOne({ _id: listings_id});
-        
-    if(!singleListing){
-        return res.send({
-            success: false,
-            message: "No matching records found"
-        })
-    }
-    else {
-        res.status(200).send({
+    console.log(singleListing, " SINGlE LISTING")
+    if(singleListing){
+        return res.status(200).send({
             success: true,
             data: singleListing,
             message: 'requested Listing category fetched'
+        })
+    }
+    else {
+        return res.send({
+            success: false,
+            message: "No matching records found"
         })
     }
 }
