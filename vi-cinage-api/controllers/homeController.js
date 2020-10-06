@@ -32,7 +32,6 @@ export const addHome = async (req, res) => {
     try {
         if (Object.keys(req.body).length === 0)
         return res.status(400).send({ success: false, message: 'Please fill all  fields' });
-
         const {image, address,city,listings_id, zip_code,state,country, publishedStatus, year_built,sq_Ft, beds, baths,parking, price, home_type, agency_id} = req.body;
         const listing = await Listing.findById({_id: listings_id});
         const agency = await RealEstate.findById({_id: agency_id});
@@ -63,11 +62,11 @@ export const addHome = async (req, res) => {
             message: 'new home created successful'
         })
     } catch (error) {
-        return res.status(500).send({
-            success: false,
+        res.json({
+            code: 500,
             message: 'Something went wrong',
             errors: error
-        })
+          });
     }
 }
 
@@ -140,8 +139,8 @@ else {
 
 
 /**
- *Fetch Single EstateAgency
- *@GET {{baseUrl}}/api/v1/estates/:id'
+ *Fetch Single Hoe
+ *@GET {{baseUrl}}/api/v1/homes/:id'
 */
 export const fetchSingleHome =  async(req, res) => {
     

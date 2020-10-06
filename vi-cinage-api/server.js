@@ -2,17 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-
-import session from 'express-session';
+import session  from 'express-session'
 import mongoose from 'mongoose'
-import {Router as api} from './router/router.js';
-
+import {Router as api} from './router.js';
 
 const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT;
-console.log(PORT, "PORT", process.env.PORT);
 
 //CORS allows request to come in from React
 const corsOptions={
@@ -26,7 +23,7 @@ app.use(cors(corsOptions))
 app.use(session({
   secret: "keepitSecretQuantico",
   resave:false,
-  saveUninitialized:false
+  saveUninitialized:false,
 }))
 
 mongoose.Promise = global.Promise;
@@ -63,7 +60,7 @@ app.on('error', (err) => {
 });
 
 app.listen(PORT, ()=>{
-    console.log(`listening on ${PORT}`);
+    console.log(`listening on  PORT ${PORT}`);
 })
 
 

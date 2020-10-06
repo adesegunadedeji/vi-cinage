@@ -113,8 +113,4 @@ export const allUsers = async (req,res)=> {
             message: error
         })
     }
-
-
-
-
 }

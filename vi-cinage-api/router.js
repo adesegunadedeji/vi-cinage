@@ -1,10 +1,10 @@
 import express from 'express';
 const router = express.Router();
 
-import {userRegistration, loginRegistration, logOut} from '../controllers/userController.js'
-import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from '../controllers/estateController.js';
-import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from '../controllers/listingsController.js';
-import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from '../controllers/homeController.js';
+import {userRegistration, loginRegistration, logOut} from './controllers/userController.js'
+import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from './controllers/estateController.js';
+import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from './controllers/listingsController.js';
+import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from './controllers/homeController.js';
 
 /* 
 User Authentication.
@@ -45,7 +45,5 @@ router.get('/homes/:id', fetchSingleHome);
 router.get("health", (req, res) => {
     res.send("OK");
 });
-
-
 
 export {router as Router};

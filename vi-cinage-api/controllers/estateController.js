@@ -5,7 +5,7 @@ import RealEstate from '../models/realEstate.js';
  *Fetch All Estate Agencies
  *@GET {{baseUrl}}/api/v1/estates
 */
-export const fetchAllAgencies = async (req, res, next) => {
+ export const fetchAllAgencies = async (req, res, next) => {
        try  {
 
         const allAgencies = await RealEstate.find();
